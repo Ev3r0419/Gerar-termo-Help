@@ -44,6 +44,20 @@ Todos os arquivos são salvos com nomes padronizados, como:
 A função privada _substituir_textos() percorre todo o documento (parágrafos e tabelas) substituindo textos-código pelos valores preenchidos.
 Isso garante que o conteúdo seja inserido mantendo a formatação original do modelo.
 
+5. Funcionalidades (Arquivo de interface e automação)
+
+Interface escura e moderna (tema Caqui).
+
+Identificação automática do usuário do Windows.
+
+Campos dinâmicos conforme o tipo de termo escolhido.
+
+Geração automática de PDF via classe GeradorDeTermos.
+
+Movimentação automática do arquivo para Meu Drive/NOME.
+
+Barra de progresso e execução em thread para não travar a interface.
+
 Resumo Final
 
 O programa automatiza completamente o processo de geração de documentos corporativos:
