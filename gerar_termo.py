@@ -1,3 +1,5 @@
+import time
+import tempfile
 from docx import Document
 import os
 import sys
@@ -6,6 +8,14 @@ from docx2pdf import convert
 from pathlib import Path
 
 
+log_path = os.path.join(os.path.expanduser("~"), "caqui_log.txt")
+
+if not sys.stdout:
+    sys.stdout = open(log_path, "a", encoding="utf-8")
+
+if not sys.stderr:
+    sys.stderr = open(log_path, "a", encoding="utf-8")
+    
 def get_resource_path(relative_path):
     """Permite acessar arquivos internos, tanto no modo script quanto empacotado no .exe"""
     if hasattr(sys, '_MEIPASS'):
@@ -44,7 +54,25 @@ class GeradorDeTermos:
         documento.save(nome_arquivo)
         convert(nome_arquivo)
 
-        return Path(f"Equipamentos - {nome}.pdf")
+        # ✅ pasta temporária segura
+        temp_dir = Path(tempfile.gettempdir()) / "caquimetro"
+        temp_dir.mkdir(exist_ok=True)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        docx_path = temp_dir / f"Equipamentos - {nome}_{timestamp}.docx"
+        pdf_path = temp_dir / f"Equipamentos - {nome}_{timestamp}.pdf"
+
+        # ✅ salva e libera
+        documento.save(docx_path)
+        del documento
+
+        # ✅ tempo para o Windows liberar o arquivo
+        time.sleep(0.4)
+
+        # ✅ conversão segura
+        convert(str(docx_path), str(pdf_path))
+
+        return pdf_path
     
 
     #Gera termo de empréstimo de equipamento do Telecom.
@@ -71,7 +99,25 @@ class GeradorDeTermos:
         documento.save(nome_arquivo)
         convert(nome_arquivo)
 
-        return Path(f"Equipamentos Telecom - {nome}.pdf")
+        # ✅ pasta temporária segura
+        temp_dir = Path(tempfile.gettempdir()) / "caquimetro"
+        temp_dir.mkdir(exist_ok=True)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        docx_path = temp_dir / f"Equipamentos Telecom - {nome}_{timestamp}.docx"
+        pdf_path = temp_dir / f"Equipamentos Telecom - {nome}_{timestamp}.pdf"
+
+        # ✅ salva e libera
+        documento.save(docx_path)
+        del documento
+
+        # ✅ tempo para o Windows liberar o arquivo
+        time.sleep(0.4)
+
+        # ✅ conversão segura
+        convert(str(docx_path), str(pdf_path))
+
+        return pdf_path
 
     #
     def preencher_termo_vpn(self, nome, cargo, departamento):
@@ -92,7 +138,25 @@ class GeradorDeTermos:
         documento.save(nome_arquivo)
         convert(nome_arquivo)
 
-        return Path(f"VPN - {nome}.pdf")
+        # ✅ pasta temporária segura
+        temp_dir = Path(tempfile.gettempdir()) / "caquimetro"
+        temp_dir.mkdir(exist_ok=True)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        docx_path = temp_dir / f"VPN - {nome}_{timestamp}.docx"
+        pdf_path = temp_dir / f"VPN - {nome}_{timestamp}.pdf"
+
+        # ✅ salva e libera
+        documento.save(docx_path)
+        del documento
+
+        # ✅ tempo para o Windows liberar o arquivo
+        time.sleep(0.4)
+
+        # ✅ conversão segura
+        convert(str(docx_path), str(pdf_path))
+
+        return pdf_path
 
     def preencher_termo_adm(self, nome, cpf):
         """Gera termo de administrador local."""
@@ -111,7 +175,25 @@ class GeradorDeTermos:
         documento.save(nome_arquivo)
         convert(nome_arquivo)
 
-        return Path(f"ADM - {nome}.pdf")
+        # ✅ pasta temporária segura
+        temp_dir = Path(tempfile.gettempdir()) / "caquimetro"
+        temp_dir.mkdir(exist_ok=True)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        docx_path = temp_dir / f"ADM - {nome}_{timestamp}.docx"
+        pdf_path = temp_dir / f"ADM - {nome}_{timestamp}.pdf"
+
+        # ✅ salva e libera
+        documento.save(docx_path)
+        del documento
+
+        # ✅ tempo para o Windows liberar o arquivo
+        time.sleep(0.4)
+
+        # ✅ conversão segura
+        convert(str(docx_path), str(pdf_path))
+
+        return pdf_path
 
     # ============================================================
     # 🔧 Função auxiliar — substitui o texto nos parágrafos e tabelas
